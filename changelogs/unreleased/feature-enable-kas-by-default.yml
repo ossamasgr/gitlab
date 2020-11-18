@@ -1,0 +1,5 @@
+---
+title: Enables gitlab-kas by default when deploying GitLab
+merge_request: 1664
+author:
+type: changed

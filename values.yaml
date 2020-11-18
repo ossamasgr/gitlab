@@ -435,7 +435,7 @@ global:
 
   ## doc/charts/gitlab/kas/index.md
   kas:
-    enabled: false
+    enabled: true
 
   ## doc/charts/globals.md#configure-gitlab-shell-settings
   shell:

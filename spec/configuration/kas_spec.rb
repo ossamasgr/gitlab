@@ -19,12 +19,10 @@ describe 'kas configuration' do
     {
       'gitlab' => {
         'kas' => {
-          'enabled' => 'true',
           'customConfig' => custom_config,
         },
       },
       'global' => {
-        'kas' => { 'enabled' => 'true' },
         'imagePullPolicy' => 'Always',
         'appConfig' => { 'gitlab_kas' => {
           'key' => custom_secret_key,
@@ -38,9 +36,13 @@ describe 'kas configuration' do
     %w[Deployment ConfigMap Ingress Service HorizontalPodAutoscaler PodDisruptionBudget]
   end
 
-  describe 'kas is disabled by default' do
+  context 'when kas is disabled' do
+    let(:disable_kas) do
+      { 'global' => { 'kas' => { 'enabled' => false } } }
+    end
+
     it 'does not create any kas related resource' do
-      template = HelmTemplate.new(values)
+      template = HelmTemplate.new(values.merge!(disable_kas))
 
       required_resources.each do |resource|
         resource_name = "#{resource}/test-kas"

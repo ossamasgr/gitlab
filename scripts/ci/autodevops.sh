@@ -47,11 +47,6 @@ function deploy() {
   track="${1-stable}"
   name="$CI_ENVIRONMENT_SLUG"
 
-  local enable_kas=()
-  if [[ -n "$KAS_ENABLED" ]]; then
-    enable_kas=("--set" "global.kas.enabled=true")
-  fi
-
   if [[ "$track" != "stable" ]]; then
     name="$name-$track"
   fi
@@ -158,8 +153,6 @@ CIYAML
     --set global.operator.enabled=true \
     --set gitlab.operator.crdPrefix="$CI_ENVIRONMENT_SLUG" \
     --set global.gitlab.license.secret="$CI_ENVIRONMENT_SLUG-gitlab-license" \
-    "${enable_kas[@]}" \
-    "${gitlab_version_args[@]}" \
     --namespace="$KUBE_NAMESPACE" \
     --version="$CI_PIPELINE_ID-$CI_JOB_ID" \
     $HELM_EXTRA_ARGS \
@@ -204,9 +197,7 @@ function wait_for_deploy {
     sleep 5;
   done
 
-  if [[ -n "$KAS_ENABLED" ]]; then
-    check_kas_status
-  fi
+  check_kas_status
 
   echo ""
 }

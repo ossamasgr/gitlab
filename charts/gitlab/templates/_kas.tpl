@@ -1,8 +1,8 @@
-{{/* ######### KAS related templates */}}
+{{/* ######### gitlab-kas related templates */}}
 
 {{- define "gitlab.kas.mountSecrets" -}}
 {{- if .Values.global.kas.enabled -}}
-# mount secret for kas
+# mount secret for gitlab-kas
 - secret:
     name: {{ template "gitlab.kas.secret" . }}
     items:
@@ -12,7 +12,7 @@
 {{- end -}}{{/* "gitlab.kas.mountSecrets" */}}
 
 {{/*
-Returns the KAS hostname.
+Returns the gitlab-kas hostname.
 If the hostname is set in `global.hosts.kas.name`, that will be returned,
 otherwise the hostname will be assembed using `kas` as the prefix, and the `gitlab.assembleHost` function.
 */}}

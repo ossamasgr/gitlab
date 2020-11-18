@@ -6,7 +6,7 @@ info: To determine the technical writer assigned to the Stage/Group associated w
 
 # Using the GitLab-Kas chart
 
-The `kas` sub-chart provides a configurable deployment of the [Kubernetes Agent Server](https://gitlab.com/gitlab-org/cluster-integration/gitlab-agent#gitlab-kubernetes-agent-server-kas), which is the server-side component of the [GitLab Kubernetes Agent](https://gitlab.com/gitlab-org/cluster-integration/gitlab-agent) implementation.
+The `gitlab-kas` sub-chart provides a configurable deployment of the [Kubernetes Agent Server](https://gitlab.com/gitlab-org/cluster-integration/gitlab-agent#gitlab-kubernetes-agent-server-kas), which is the server-side component of the [GitLab Kubernetes Agent](https://gitlab.com/gitlab-org/cluster-integration/gitlab-agent) implementation.
 
 ## Requirements
 
@@ -14,7 +14,7 @@ This chart depends on access to the GitLab API and the Gitaly Servers. An Ingres
 
 ## Design Choices
 
-The `kas` container used in this chart use a distroless image for minimal resource consumption. The deployed services are exposed by an Ingress which uses [WebSocket proxying](https://nginx.org/en/docs/http/websocket.html) to permit communication in long lived connections with the external component [`agentk`](https://gitlab.com/gitlab-org/cluster-integration/gitlab-agent#gitlab-kubernetes-agent-agentk), which is its Kubernetes cluster-side agent counterpart.
+The `gitlab-kas` container used in this chart use a distroless image for minimal resource consumption. The deployed services are exposed by an Ingress which uses [WebSocket proxying](https://nginx.org/en/docs/http/websocket.html) to permit communication in long lived connections with the external component [`agentk`](https://gitlab.com/gitlab-org/cluster-integration/gitlab-agent#gitlab-kubernetes-agent-agentk), which is its Kubernetes cluster-side agent counterpart.
 
 The route to access the service will depend on your [Ingress configuration](#ingress).
 
@@ -22,9 +22,9 @@ Follow the link for further information about the [GitLab Kubernetes Agent archi
 
 ## Configuration
 
-### Enable
+### Enable / Disable
 
-`kas` is deployed turned off by default. To enable it on your GitLab server, use the Helm property `global.kas.enabled`, like: `helm install --set global.kas.enabled=true`.
+`gitlab-kas` is enabled by default. To disable it on your GitLab server, use the Helm property `global.kas.enabled`, like: `helm install --set global.kas.enabled=false`.
 
 ### Ingress
 
@@ -72,28 +72,26 @@ the `helm install` command using the `--set` flags.
    Choose the **Long Path** if you don't have access to `gitlab-paas` GCP project (internal).
 
    - **Short Path:** setup your local configuration to talk to this cluster:
-   `gcloud container clusters get-credentials kas-chart-qa --zone us-west1-b --project gitlab-paas`. Then checkout the MR working branch and install/upgrade GitLab with `kas` enabled from your local chart branch using `--set global.kas.enabled=true`. For example, using Helm v3:
+   `gcloud container clusters get-credentials kas-chart-qa --zone us-west1-b --project gitlab-paas`. For example, using Helm v3:
 
    ```shell
    helm upgrade --force --install gitlab . \
      --timeout 600s \
      --set global.hosts.domain=qa.joaocunha.eu \
      --set global.hosts.externalIP=35.227.184.50 \
-     --set certmanager-issuer.email=fake.email@gitlab.com \
-     --set global.kas.enabled=true
+     --set certmanager-issuer.email=fake.email@gitlab.com
    ```
 
    Check that the deploy was successful and skip to step 6.
 
-   - **Long Path:** create your own GKE cluster. Then checkout the MR working branch and install/upgrade GitLab with `kas` enabled from your local chart branch using `--set global.kas.enabled=true`, for example:
+   - **Long Path:** create your own GKE cluster. Then checkout the MR working branch and install/upgrade GitLab for example:
 
    ```shell
    helm upgrade --force --install gitlab . \
      --timeout 600s \
      --set global.hosts.domain=your.domain.com \
      --set global.hosts.externalIP=XYZ.XYZ.XYZ.XYZ \
-     --set certmanager-issuer.email=your@email.com \
-     --set global.kas.enabled=true
+     --set certmanager-issuer.email=your@email.com
    ```
 
 1. Create a project on your GitLab instance to manage your cluster by either importing or copying the contents of [this template project](https://gitlab.qa.joaocunha.eu/root/kas-qa):

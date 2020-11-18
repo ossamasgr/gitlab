@@ -5,7 +5,7 @@
 annotations: {}
 global:
   kas:
-    enabled: false
+    enabled: true
   # hosts:
     # kas:
       # name: kas.example.com
