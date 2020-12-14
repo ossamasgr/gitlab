@@ -681,7 +681,10 @@ production_specs_eks:
     - if [ "$app_version" != "master"  ]; then
     -   qa_version="${app_version}-ee"
     - fi
-    - GITLAB_USERNAME=root GITLAB_PASSWORD=$ROOT_PASSWORD GITLAB_ADMIN_USERNAME=root GITLAB_ADMIN_PASSWORD=$ROOT_PASSWORD EE_LICENSE=$REVIEW_APPS_EE_LICENSE gitlab-qa Test::Instance::Any EE:$qa_version https://$QA_ENVIRONMENT_URL
+    # - GITLAB_USERNAME=root GITLAB_PASSWORD=$ROOT_PASSWORD GITLAB_ADMIN_USERNAME=root GITLAB_ADMIN_PASSWORD=$ROOT_PASSWORD EE_LICENSE=$REVIEW_APPS_EE_LICENSE gitlab-qa Test::Instance::Any EE:$qa_version https://$QA_ENVIRONMENT_URL
+    - GITLAB_USERNAME=root GITLAB_PASSWORD=$ROOT_PASSWORD GITLAB_ADMIN_USERNAME=root GITLAB_ADMIN_PASSWORD=$ROOT_PASSWORD EE_LICENSE=$REVIEW_APPS_EE_LICENSE gitlab-qa Test::Instance::Any registry.gitlab.com/gitlab-org/build/omnibus-gitlab-mirror/gitlab-ee:e1a933756ee1b5864487c3762b80c05b69b9b6fc https://$QA_ENVIRONMENT_URL -- qa/specs/features/ee/api/7_configure/kubernetes/kubernetes_agent_spec.rb
+    # - GITLAB_USERNAME=root GITLAB_PASSWORD=$ROOT_PASSWORD GITLAB_ADMIN_USERNAME=root GITLAB_ADMIN_PASSWORD=$ROOT_PASSWORD EE_LICENSE=$REVIEW_APPS_EE_LICENSE gitlab-qa Test::Instance::Any registry.gitlab.com/gitlab-org/build/omnibus-gitlab-mirror/gitlab-ee-qa:e1a933756ee1b5864487c3762b80c05b69b9b6fc https://$QA_ENVIRONMENT_URL -- qa/specs/features/ee/api/7_configure/kubernetes/kubernetes_agent_spec.rb
+    # - GITLAB_USERNAME=root GITLAB_PASSWORD=$ROOT_PASSWORD GITLAB_ADMIN_USERNAME=root GITLAB_ADMIN_PASSWORD=$ROOT_PASSWORD EE_LICENSE=$REVIEW_APPS_EE_LICENSE gitlab-qa Test::Instance::Any registry.gitlab.com/gitlab-org/build/omnibus-gitlab-mirror/gitlab-ee-qa:e1a933756ee1b5864487c3762b80c05b69b9b6fc https://gitlab.qa.joaocunha.eu/ -- qa/specs/features/ee/api/7_configure/kubernetes/kubernetes_agent_spec.rb
   artifacts:
     when: on_failure
     expire_in: 7d
