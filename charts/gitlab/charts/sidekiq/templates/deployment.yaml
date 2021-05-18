@@ -117,6 +117,7 @@ spec:
           image: {{ include "gitlab.busybox.image" (dict "local" $.Values.init "global" $.Values.global.busybox) | quote }}
           env:
           {{- include "gitlab.extraEnv" $ | nindent 10 }}
+          {{- include "gitlab.extraEnvTpl" $ | nindent 10 }}
           volumeMounts:
           {{- tpl (default "" .extraVolumeMounts) $ | nindent 10 }}
           {{- include "gitlab.extraVolumeMounts" $ | nindent 10 }}
@@ -158,6 +159,7 @@ spec:
               value: "1"
             {{- end }}
             {{- include "gitlab.extraEnv" $ | nindent 12 }}
+            {{- include "gitlab.extraEnvTpl" $ | nindent 12 }}
           volumeMounts:
           {{- tpl (default "" .extraVolumeMounts) $ | nindent 10 }}
           {{- include "gitlab.extraVolumeMounts" $ | nindent 10 }}

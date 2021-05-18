@@ -84,6 +84,16 @@ Global values will override any chart-specific values.
 {{- end -}}
 
 {{/*
+Returns templated extraEnv keys and values to inject into containers.
+
+As this is a string block, it allows greater flexibility and and allows
+the user to leverage environment settings that aren't simple key=value
+*/}}
+{{- define "gitlab.extraEnvTpl" -}}
+{{ tpl (default "" .Values.extraEnvTpl) . }}
+{{- end -}}
+
+{{/*
 Detect whether to include internal Gitaly resources.
 Returns `true` when:
   - Internal Gitaly is on

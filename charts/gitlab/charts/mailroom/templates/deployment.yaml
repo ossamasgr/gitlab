@@ -66,6 +66,7 @@ spec:
           image: {{ include "gitlab.busybox.image" (dict "local" .Values.init "global" $.Values.global.busybox) | quote }}
           env:
           {{- include "gitlab.extraEnv" . | nindent 10 }}
+          {{- include "gitlab.extraEnvTpl" . | nindent 10 }}
           volumeMounts:
           {{- include "gitlab.extraVolumeMounts" . | nindent 10 }}
           - name: mailroom-config
@@ -88,6 +89,7 @@ spec:
           {{ template "gitlab.imagePullPolicy" . }}
           env:
           {{- include "gitlab.extraEnv" . | nindent 10 }}
+          {{- include "gitlab.extraEnvTpl" . | nindent 10 }}
           volumeMounts:
             - name: mailroom-config
               mountPath: /var/opt/gitlab/mail_room.yml

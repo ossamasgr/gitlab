@@ -52,6 +52,7 @@ spec:
           image: {{ include "gitlab.busybox.image" (dict "local" $.Values.init "global" $.Values.global.busybox) | quote }}
           env:
           {{- include "gitlab.extraEnv" $ | nindent 12 }}
+          {{- include "gitlab.extraEnvTpl" $ | nindent 12 }}
           volumeMounts:
           {{- include "gitlab.extraVolumeMounts" $ | nindent 10 }}
           - name: pages-config

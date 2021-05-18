@@ -67,6 +67,7 @@ spec:
           image: {{ include "gitlab.busybox.image" (dict "local" .Values.init "global" .Values.global.busybox) | quote }}
           env:
           {{- include "gitlab.extraEnv" $ | nindent 10 }}
+          {{- include "gitlab.extraEnvTpl" $ | nindent 10 }}
           volumeMounts:
           {{- include "gitlab.extraVolumeMounts" $ | nindent 10 }}
           - name: praefect-config
@@ -113,6 +114,7 @@ spec:
           value: ':{{ .Values.metrics.port }}'
         {{- include "gitlab.tracing.env" . | nindent 8 }}
         {{- include "gitlab.extraEnv" . | nindent 8 }}
+        {{- include "gitlab.extraEnvTpl" . | nindent 8 }}
         args: [ "sh", "/scripts/praefect/praefect-start" ]
         resources:
           {{- toYaml .Values.resources | nindent 10 }}

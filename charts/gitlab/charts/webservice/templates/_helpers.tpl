@@ -217,3 +217,12 @@ Global values will override any chart-specific values.
   value: {{ $value | quote }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Returns the templated string of extra environment settings to inject into containers.
+
+Global values will override any chart-specific values.
+*/}}
+{{- define "webservice.extraEnvTpl" -}}
+{{ tpl (default "" .global.extraEnvTpl .local.extraEnvTpl) . }}
+{{- end -}}
