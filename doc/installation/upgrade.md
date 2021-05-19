@@ -50,7 +50,7 @@ The following are the steps to upgrade GitLab to a newer version:
    helm get values gitlab > gitlab.yaml
    ```
 
-1. Decide on all the values you need to carry through as you upgrade. GitLab has reasonable default values, and while upgrading you can attempt to pass in all values from the above command, but it could create a scenario where a configuration has changed across chart versions and it might not map cleanly. We advise keeping a minimal set of values that you want to explicitly set, and passing those during the upgrade process.
+1. Decide on all the values you need to carry through as you upgrade. GitLab has reasonable default values, and while upgrading, you can attempt to pass in all values from the above command, but it could create a scenario where a configuration has changed across chart versions and it might not map cleanly. We advise keeping a minimal set of values that you want to explicitly set, and passing those during the upgrade process.
 1. If you were using the GitLab Operator, it is [**deprecated**](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/2210), and will be removed in the future.
 1. Perform the upgrade, with all `--set` arguments extracted in the previous step:
 
