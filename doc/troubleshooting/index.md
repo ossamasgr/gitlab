@@ -295,3 +295,43 @@ thus causing the extra load in the `/api/v4/jobs/requests` endpoint. To fix this
 workhorse:
   keywatcher: true
 ```
+
+## Git over SSH: `the remote end hung up unexpectedly`
+
+Git operations over SSH may fail intermittently with the following error:
+
+```plaintext
+fatal: the remote end hung up unexpectedly
+fatal: early EOF
+fatal: index-pack failed
+```
+
+There are a number of potential causes for this.
+
+### Network timeouts
+
+Long running connections from Git clients doing things like compressing objects before sending might run
+into timeouts such as [the haxproxy timeout_client](https://gitlab.com/gitlab-cookbooks/gitlab-haproxy/-/blob/bac2c92cec052783b8d34244bb1e4afda95c5eb5/attributes/default.rb#L39)
+setting.
+
+From [Chart 5.0 (GitLab 14.0)](https://gitlab.com/gitlab-org/charts/gitlab/-/merge_requests/2049) a
+keepalive can be set in `sshd`:
+
+```yaml
+  gitlab-shell:
+    config:
+      clientAliveInterval: 15
+```
+
+### `gitlab-shell` memory
+
+By default, the chart does not set a limit on GitLab Shell memory.
+If `gitlab-shell.limits.memory` is set too low, Git operations over SSH may fail with these errors.
+
+Check with `kubectl describe nodes` to confirm that this is caused by memory limits rather than
+timeouts over the network.
+
+```plaintext
+System OOM encountered, victim process: gitlab-shell
+Memory cgroup out of memory: Killed process 3141592 (gitlab-shell)
+```
