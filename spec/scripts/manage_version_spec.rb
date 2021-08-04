@@ -112,7 +112,7 @@ describe 'scripts/manage_version.rb' do
 
       context 'chart_version and app_version provided on master branch' do
         it 'ignores app_version for update_versions, adds version mapping entry' do
-          stub_versions(new_version: '1.0.0', app_version: 'master', new_app_version: '1.0.0', branch: 'master')
+          stub_versions(new_version: '1.0.0', app_version: 'main', new_app_version: '1.0.0', branch: 'master')
 
           expect(chart_file).to receive(:update_versions).with('1.0.0', nil)
           expect(version_mapping).to receive(:insert_version).with('1.0.0', '1.0.0')
@@ -131,7 +131,7 @@ describe 'scripts/manage_version.rb' do
 
         context 'from master branch' do
           it 'increases chart patch when receiving an app patch' do
-            stub_versions(version: '0.0.1', app_version: 'master', new_app_version: '10.8.1')
+            stub_versions(version: '0.0.1', app_version: 'main', new_app_version: '10.8.1')
 
             expect(chart_file).to receive(:update_versions).with('0.0.2', '10.8.1')
             expect(version_mapping).to receive(:insert_version).with('0.0.2', '10.8.1')
@@ -139,7 +139,7 @@ describe 'scripts/manage_version.rb' do
           end
 
           it 'increases chart minor when receiving an app minor' do
-            stub_versions(version: '0.0.1', app_version: 'master', new_app_version: '10.8.0')
+            stub_versions(version: '0.0.1', app_version: 'main', new_app_version: '10.8.0')
 
             expect(chart_file).to receive(:update_versions).with('0.1.0', '10.8.0')
             expect(version_mapping).to receive(:insert_version).with('0.1.0', '10.8.0')
@@ -147,7 +147,7 @@ describe 'scripts/manage_version.rb' do
           end
 
           it 'increases chart major when receiving an app major' do
-            stub_versions(version: '0.0.1', app_version: 'master', new_app_version: '11.0.0')
+            stub_versions(version: '0.0.1', app_version: 'main', new_app_version: '11.0.0')
 
             expect(chart_file).to receive(:update_versions).with('1.0.0', '11.0.0')
             expect(version_mapping).to receive(:insert_version).with('1.0.0', '11.0.0')
@@ -155,7 +155,7 @@ describe 'scripts/manage_version.rb' do
           end
 
           it 'increases chart version when receiving RC in a way that matches non-RC behaviour' do
-            stub_versions(version: '0.0.1', app_version: 'master', new_app_version: '11.0.0-rc1')
+            stub_versions(version: '0.0.1', app_version: 'main', new_app_version: '11.0.0-rc1')
 
             expect(chart_file).to receive(:update_versions).with('1.0.0', '11.0.0-rc1')
             expect(version_mapping).not_to receive(:insert_version)

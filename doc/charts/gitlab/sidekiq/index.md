@@ -400,8 +400,8 @@ Any queue to which jobs are added but are not represented as a part of at least
 one pod item *will not be processed*. For a complete list of all queues, see
 these files in the GitLab source:
 
-1. [`app/workers/all_queues.yml`](https://gitlab.com/gitlab-org/gitlab/-/blob/master/app/workers/all_queues.yml)
-1. [`ee/app/workers/all_queues.yml`](https://gitlab.com/gitlab-org/gitlab/-/blob/master/ee/app/workers/all_queues.yml)
+1. [`app/workers/all_queues.yml`](https://gitlab.com/gitlab-org/gitlab/-/blob/main/app/workers/all_queues.yml)
+1. [`ee/app/workers/all_queues.yml`](https://gitlab.com/gitlab-org/gitlab/-/blob/main/ee/app/workers/all_queues.yml)
 
 ### negateQueues
 

@@ -161,7 +161,7 @@ documentation](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History).
 
 ### History and Reasoning
 
-This method was adopted from the primary [GitLab codebase](https://gitlab.com/gitlab-org/gitlab/blob/master/doc/development/changelog.md), as we
+This method was adopted from the primary [GitLab codebase](https://gitlab.com/gitlab-org/gitlab/blob/main/doc/development/changelog.md), as we
 found the workflow to be appealing and familiar.
 
 ---
