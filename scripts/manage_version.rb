@@ -139,7 +139,7 @@ class VersionUpdater
 
     return if options.dry_run
 
-    # Never change appVersion in main branch
+    # Never change appVersion in master branch
     chart.update_versions(@chart_version, branch == 'master' ? nil : @app_version)
 
     # Only insert into version_mapping when we have both versions, as releases
