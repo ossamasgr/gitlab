@@ -23,7 +23,7 @@ Usage:
 2. Else we just use the version passed as the image tag
 */}}
 {{- define "gitlab.parseAppVersion" -}}
-{{- $appVersion := coalesce .appVersion "main" -}}
+{{- $appVersion := coalesce .appVersion "master" -}}
 {{- if regexMatch "^\\d+\\.\\d+\\.\\d+(-rc\\d+)?(-pre)?$" $appVersion -}}
 {{-   if eq .prepend "true" -}}
 {{-      printf "v%s" $appVersion -}}
