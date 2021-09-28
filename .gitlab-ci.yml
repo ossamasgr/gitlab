@@ -82,8 +82,12 @@ update-trigger-branch:
   stage: prepare
   allow_failure: true
   variables:
+    GIT_STRATEGY: none
+    TRIGGER_PROJECT: "gitlab.com/gitlab-org/charts/gitlab.git"
     TRIGGER_BRANCH: "dj-test-trigger"
   script:
+    - git clone "https://${GITLAB_TRIGGER_UPDATE_BOT_USERNAME}:${GITLAB_TRIGGER_UPDATE_BOT_PASSWORD}@${TRIGGER_PROJECT}" update-project
+    - cd update-project
     - git checkout -B ${TRIGGER_BRANCH}
     - git merge $CI_DEFAULT_BRANCH
     - git push origin ${TRIGGER_BRANCH} -o ci.skip
