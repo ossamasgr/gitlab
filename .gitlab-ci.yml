@@ -81,6 +81,7 @@ tag_auto_deploy:
 update-trigger-branch:
   stage: prepare
   allow_failure: true
+  before_script: []
   variables:
     GIT_STRATEGY: none
     TRIGGER_PROJECT: "gitlab.com/gitlab-org/charts/gitlab.git"
