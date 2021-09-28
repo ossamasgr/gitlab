@@ -78,6 +78,18 @@ tag_auto_deploy:
       - $DEPS_PIPELINE
       - $TRIGGER_JOB
 
+update-trigger-branch:
+  stage: prepare
+  allow_failure: true
+  variables:
+    TRIGGER_BRANCH: "dj-test-trigger"
+  script:
+    - git checkout -B ${TRIGGER_BRANCH}
+    - git merge $CI_DEFAULT_BRANCH
+    - git push origin ${TRIGGER_BRANCH} -o ci.skip
+  rules:
+    - if: '$CI_PROJECT_PATH == "gitlab-org/charts/gitlab" && $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "dj-test-update-trig"'
+
 dependency_update:
   image: registry.gitlab.com/gitlab-org/gitlab-omnibus-builder/ruby_docker
   stage: prepare
